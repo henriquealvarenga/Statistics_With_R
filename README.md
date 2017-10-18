@@ -6,3 +6,5 @@ Atenciosamente,
 Prof. Henrique Alvarenga da Silva
 http://lattes.cnpq.br/6147640440978297
 email: henriquealvarenga@gmail.com
+São João del Rei / MG 
+Brazil

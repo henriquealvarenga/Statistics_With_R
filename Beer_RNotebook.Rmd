@@ -1,0 +1,117 @@
+---
+title: "Cervejas e Estatistica"
+output: html_notebook
+---
+
+```{r, echo=FALSE}
+library(tidyverse)
+```
+
+```{r}
+# carregando o dataset beers, que tem todas as cervejas, já com os dados faltantes removidos, e também com os grupos ale e lager já criados separados
+load("beers.RData")
+```
+
+```{r}
+# criando novos subconjuntos de diferentes tipos de cervejas
+
+IPA             <- beer   %>%  filter(str_detect(sub_style, "IPA"))
+American.IPA    <- beer   %>%  filter(str_detect(sub_style, "American IPA"))
+Imperial.IPA    <- beer   %>%  filter(str_detect(sub_style, "Imperial IPA"))
+Belgian.IPA     <- beer   %>%  filter(str_detect(sub_style, "Belgian IPA"))
+STOUT           <- beer   %>%  filter(str_detect(sub_style, "Stout"))
+American.STOUT  <- beer   %>%  filter(str_detect(sub_style, "American Stout"))
+Imperial.STOUT  <- beer   %>%  filter(str_detect(sub_style, "Imperial Stout"))
+English.STOUT   <- beer   %>%  filter(str_detect(sub_style, "English Stout"))
+BLACK           <- beer   %>%  filter(str_detect(sub_style, "Black") | str_detect(name, "Black") )
+ale.BLACK       <- BLACK  %>%  filter(str_detect(style,     "ale"))
+PORTER          <- beer   %>%  filter(str_detect(sub_style, "Porter"))
+American.PORTER <- PORTER %>%  filter(str_detect(sub_style, "American Porter"))
+English.PORTER  <- PORTER %>%  filter(str_detect(sub_style, "English Porter"))
+PILSENER        <- beer   %>%  filter(str_detect(sub_style, "Pilsner"))
+BOCK            <- beer   %>%  filter(str_detect(sub_style, "Bock"))
+GUINNES         <- beer   %>%  filter(str_detect(brewery,   "Guinness"))
+CARLSBERG       <- beer   %>%  filter(str_detect(brewery,   "Carlsberg"))
+BRASILEIRAS     <- beer   %>%  filter(str_detect(country,   "Brazil"))
+```
+
+# Introdução
+
+A cerveja é a bebida alcoólica mais popular em todo o mundo, e a terceira bebida mais popular depois da água e do chá. Pesquisas mostram que as pessoas têm fermentado esta famosa bebida há vários milhares de anos antes da Era Comum. Estudos recentes afirmam que a produção e consumo de cerveja foi um fator importante no desenvolvimento da sociedade civilizada, argumentando que o papel importante e muitas vezes espiritual desempenhado pela cerveja em cerimônias e festas tradicionais contribuiu para o desenvolvimento do ritual e da tradição e consequentemente o desenvolvimento da sociedade em geral.
+
+Além disso, a pesquisa desenvolvida na indústria da cerveja tem um importante papel no desenvolvimento da estatística. Um dos testes estatísticos mais usados na ciência, o test t de Student foi introduzido em 1908 por William Sealy Gosset, matemático e estatístico que trabalhava na cervejaria Guinness, em Dublin, na Irlanda. A Guinness considerava de grande ipmortância recrutar os melhores graduados de Oxford e Cambridge para os cargos de bioquímico e estatístico de testes de sua cerveja. Gosset desenvolveu o teste t como um modo para monitorar a qualidade da cerveja tipo stout. O grande diferencial desse teste é justamente o fato de poder ser aplicado quando o tamanho da amostra é pequeno. Isso permite que se façam inferências usando um menor número de elementos, reduzindo os custos da pesquisa de qualidade. A importancia dada ao trabalho estatístico na Guinnes era tamanha o uso de métodos estatísticos na fabricação da cerveja era considerado um segredo industrial. Assim, quando Gosset publicou o artigo sobre o teste t na revista acadêmica Biometrika em 1908, foi forçado a usar um pseudônimo. Gosset usava o pseudônimo Student em seus trabalhos e por isso o teste t passou a ser conhecido como teste t de Student.
+
+A indústria da cerveja tem também um importante papel na economia mundial. A produção mundial de cerveja em 2016 foi de 196 bilhões de litros de cerveja. A China é o maior produtor mundial de cerveja, com um volume de produção em 2016 de 45 bilhões de litros de cerveja. Os Estados Unidos e o Brasil são segundo e terceiro principais produtores no mundo, com um volume de produção de, respectivamente, 22,1 bilhões de litros e 13,3 bilhões de litros de cerveja em 2016. fonte (https://www.statista.com/statistics/270275/worldwide-beer-production/). No Brasil a indústria da ceveja responde por 1,6% do PIB, 2,2 milhões de empregos, com um faturamento de 77 bilhões de reais por ano. Fonte (anuário estatístico da CervBrasil 2016).
+
+
+
+# Os dois grandes grupos: Lager e Ale
+
+__Ale__ e __Lager__ são os dois principais tipos de cerveja. As cervejas do tipo __Ale__ são as cervejas tradicionais mais antigas, antecedendo as __Lager__ por milhares de anos, que são uma criação relativamente moderna, com menos de 200 anos de idade.
+
+As cervejas _Lagers_ surgiram pela primeira vez nas cervejarias da Baviera no final do século XV ou início do século XVI, e depois se espalharam para o resto da Europa (mais famoso para Plzeň, o berço da _pilsner_) e, eventualmente, para o resto do mundo. 
+
+Todas essas cervejas de marcas "nacionais" - Heineken, Tsing Tao, Sapporo, Kingfisher, Budweiser, para citar apenas algumas - essas são todas do tipo _Lager_. 
+
+## A levedura das lagers e das ales
+
+O ramo da árvore genealógica da cerveja - ale ou lager - corresponde ao tipo de levedura usado na cerveja. Existem as levedura _Ale_ as leveduras _lager_. 
+A levedura da cerveja _Lager_, Saccharomyces pastorianus, foi isolada pela primeira vez e descrita em 1904 pelo micologista dinamarquês Emil Christian Hansen, enquanto trabalhava na cervejaria Carlsberg, na Dinamarca.
+
+Esses tipos de levedura ditam a temperatura na qual a cerveja é fermentada. As cervejas _Ale_ são tradicionalmente fermentadas em temperaturas mais quentes (12 a 21 graus Celsius), enquanto as _lagers_ são tipicamente fermentadas em temperaturas mais baixas (3 a 10 graus Celsius).
+
+As temperaturas mais baixas de fermentação das cerverjas _lagers_ retardam a atividade da levedura e exigem um maior tempo de maturação. As cervejas _lagers_ são fermentadas e, em seguida, "lagered" (armazenadas) por um período de semanas ou meses a temperaturas que pairam nos anos 4º Celsius. Esta fermentação baixa e lenta significa que as cervejas têm um gosto "limpo" e não possuem os ésteres frutados característicos das _ales_.
+
+Este processo cria o sabor mais limpo da _lager_. O envelhecimento prolongado (ou lagering) também age para amadurecer a cerveja.
+
+![Lager vs Ale](lager_ale.jpg)
+
+
+# Fazendo alguns testes com os grupos de cervejas 
+
+## Análise do ABV - Alcohol by Volume
+
+A gradação alcoolica de bebidas é usualmente denotada por ABV (álcool por volume) é uma medida padrão de quanto álcool (etanol) está contido em um determinado volume de uma bebida alcoólica e expresso como um percentual de volume (%).  É definido como o número de mililitros (mL) de etanol puro presente em 100 mL de solução a 20 ° C (68 ° F).  Apesar do padrão ABV ser usado em todo o mundo, em alguns países, como na a França, o álcool em volume é muitas vezes referido como graus Gay-Lussac (segundo o químico francês Joseph Louis Gay-Lussac).
+
+Sumarizando os dados do ABV das cervejas lager e ale
+```{r}
+summary(ale$ABV)
+```
+
+```{r}
+summary(lager$ABV)
+```
+
+
+Fazendo um teste t para avaliar se a diferença entre a quantidade de álcool nas lagers e ales é significativa
+```{r}
+t.test(ale$ABV, lager$ABV)
+```
+
+
+## Análise do IBU - International Bittering Units scale
+
+IBU - International Bittering Units scale - escala internacional de amargor
+
+Escalas de amargor tentam avaliar o sabor amargo relativo da cerveja. A amargura da cerveja é fornecida por compostos como humulones ou alfa-ácidos do lúpulo usados durante a fabricação de cerveja. Durante o processo de fermentação, o humulone sofre isomerização para formar cis e trans-isohumulona, responsáveis pelo sabor amargo da cerveja.  Da mesma forma, o lúpulo contém lupulonas ou ácidos beta. Esses ácidos beta não são considerados no amargor inicial do mosto tanto quanto em suas contrapartes de ácido alfa, uma vez que não se isomerizam por ebulição e, portanto, não se dissolvem no mosto. No entanto, os ácidos beta podem sofrer oxidação e contribuir lentamente para o amargor da cerveja. Esta amargura é mais dura do que o amargor dos ácidos alfa e este sabor pode ser indesejável. A oxidação ocorre ao longo do tempo através da fermentação, armazenamento e envelhecimento. Ao mesmo tempo, os alfa-ácidos isomerizados sofrem degradação e reduzem o amargor da cerveja.
+
+A IBU mede a amargura do lúpulo em uma cerveja em uma escala de 0 a 100. Em termos técnicos, a IBU mede os alfa-ácidos isomerizados do lúpulo em uma cerveja em partes por milhão. Cervejas muito lupuladas, como as IPAs imperiais, podem chegar a 80 IBU.
+
+Embora os IBUs possam ajudar você a entender melhor o tipo de cerveja que você gosta em termos de amargura, é importante observar que o amargor da cerveja também é afetado pelos maltes. Cerveja com IBU alta, como cerveja preta, pode não ser muito amarga por causa de seus doces. Em vez de confiar no IBU para perceber a amargura de uma cerveja, use-a para avaliar suas preferências. Tente olhar para o IBU de suas cervejas favoritas para entender qual é o sua favorita. 
+
+Sumarizando os dados do IBU das cervejas lager e ale
+```{r}
+summary(ale$IBU)
+summary(lager$IBU)
+```
+
+Calculando as médias as avaliações dos dois tipos de cerveja, ale e lager
+```{r}
+mean(ale$BA_rating)
+mean(lager$BA_rating)
+```
+
+Testando para ver se há diferenças entre as médias das pontuações das 
+```{r}
+t.test(ale$BA_rating, lager$BA_rating)
+```

@@ -1,0 +1,324 @@
+---
+title: "Artite"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+# Análise de dados categóricos
+
+Para esse exercício será usado como exemplo o banco de dados chamado Arthritis disponível no pacote vcd (Visualizing Categorical Data). Esses dados podem ser carregados com o comando data(Arthritis), desde que você já tenha instalado o pacote vcd. 
+
+Para os alunos que já tem esse dataset baixado com o nome Artrite.RData, os dados podem ser carregados com o comando load("Artrite.Rdata").
+
+
+
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(kableExtra)
+library(knitr)
+library(vcd)
+```
+
+
+
+
+
+```{r, echo=FALSE}
+load("Artrite.Rdata")
+```
+
+
+Esses dados representam os resultados de um ensaio clínico para investigar um novo tratamento para artrite reumatóide em 84 pacientes. 
+
+Referência dos dados: 
+
+G. Koch & S. Edwards (1988), Clinical efficiency trials with categorical data. In K. E. Peace (ed.), Biopharmaceutical Statistics for Drug Development, 403–451. Marcel Dekker, New York.
+
+
+Dicionário de Variáveis
+
+variável     | significado                  | níveis                   | tipo    
+-------------|------------------------------|--------------------------|---------
+ ID          | nº identificador do paciente |           -              |  int    
+ Treatment   | Droga usada                  | 2 (Placebo, Treated)     | nominal 
+ Sex         | Sexo do paciente             | 2 (Female , Male)        | nominal 
+ Age         | Idade do paciente            |           -              |   int   
+ Improved    | Grau de melhora da artrite   | 3 (None < Some < Marked) | ordinal 
+
+
+
+# Analisando as variáveis categóricas individualmente
+
+## Analisando a variável Treatment
+
+A variável treatment contém a informação acerca da medicação usada pelo paciente. Os pacientes que usaram o medicamento são identificados com o termo "Treated" e os pacientes que usaram o placebo estão identificados pelo termo "Placebo".  
+
+Para tabularmos a quantidade de pacientes que usaram placebo e a droga ativa usamos a função table().  
+
+O argumento dessa função deve ser o nome do banco de dados (nome do dataframe) seguido do operador $ e o nome da variável desejada.
+
+O nome do dataframe é Artrite.
+
+A variável a ser analisada é Treatment.
+
+Nesse caso o argumento da função table será:  Artrite$Treatment
+
+
+```{r}
+table(Artrite$Treatment)
+```
+
+
+Podemos verificar na tabela criada que há 43 pacientes usando placebo e 41 usando o medicamento.
+
+
+
+
+
+## Analisando a variável Sex
+
+Para analisar a quantidade de homens e de mulheres na pesquisa procedemos da mesma forma que fizemos anteriormente: 
+
+O nome do dataframe é Artrite.
+
+A variável a ser analisada dessa vez é Sex
+
+```{r}
+table(Artrite$Sex)
+```
+
+Podemos ver na tabela acima que existem 59 mulheres e 25 homens na pesquisa
+
+
+Mais adiante iremos usar novamente essa tabela. Portanto, vamos armazenar essa tabela numa variável para uso posterior. Fazendo isso não precisaremos digitar novamente o comando acima toda vez que quisermos usar essa tabela. Para facilitar a identificação dessa tabela vamos criar um nome que seja sugestivo, ou seja, um nome que nos indique que represeta uma tabela com os dados do sexo dos pacientes. O nome "t.sex" parece ser adequado, é pequeno, portanto fácil de digitar, e serve para nos indicar que t.sex se refere a uma tabela com o sexo dos pacientes.
+
+
+```{r}
+t.sex <- table(Artrite$Sex)
+```
+
+Daqui pra frente, sempre que quisermos ver ou usar essa tabela basta digitar t.sex, como no exemplo a seguir.
+
+
+```{r}
+t.sex
+```
+
+
+Agora que já temos essa tabela armazenada numa variável, podemos fazer outras operações. 
+
+Podemos usar o comando prop.table() para calcular as proporções de cada sexo. Para isso basta digitar esse comando no R e inserir a tabela a ser usada para que o R faça os cálculos da proporção de cada sexo.
+
+```{r}
+prop.table(t.sex)
+```
+
+A tabela acima nos mostra que 70% dos pacientes são mulheres e 30% são homens.
+
+
+
+
+## Analisando a variável Improved
+
+Para analisar o grau de melhora dos pacientes da pesquisa procedemos da mesma forma que fizemos anteriormente: 
+
+O nome do dataframe é Artrite.
+
+A variável a ser analisada dessa vez é Improved
+
+```{r}
+table(Artrite$Improved)
+```
+
+Podemos ver que 42 pacientes não melhoraram, 14 tiveram uma alguma melhora e 28 uma grande melhora.
+
+
+
+Vamos armazenar também essa tabela numa variável, que chamaremos de t.melhora. Assim, sempre que precisamos usar essa tabela, bastará digitar esse nome.
+
+```{r}
+t.melhora <- table(Artrite$Improved)
+```
+
+
+Como já armazenamos essa tabela na variával t.melhora, vamos agora calcular também as proporções de pacientes em cada grupo. Ou seja, vamos calcular o percentual de pacientes que não tiveram melhora nenhuma, dos que tiveram alguma melhora e dos que tiveram uma grande melhora. Para isso vamos usar novamente a função prop.table().
+
+```{r}
+prop.table(t.melhora)
+```
+
+Veja que 50% dos pacientes não tiveram nenhuma melhora, 16% alguma melhora e 33% uma grande melhora.
+
+Entretanto, não sabemos quantos pacientes tomaram placebo ou medicamento em cada um desses grupos. Para saber isso precisamos fazer um cruzamento de dados, precisamos analisar simultaneamente duas variáveis: o tipo de medicamento usado e o grau de melhora.
+
+
+
+
+# Analisando a relação entre as variáveis categóricas
+
+A análise individual de cada variável nos ajuda a descrever a amostra. Mas o que realmente interessa é avaliar a relação entre essas variáveis.
+
+A principal relação a ser avaliada é a  que existe entre o uso do medicamento ou placebo e o grau de melhora. Queremos saber se o medicamento realmente é capaz de provocar uma melhora maior que o placebo. 
+
+Para essa análise precisamos criar tabelas com cruzamento desses dados, também chamadas de tabelas de contingência. A criação dessas tabelas é realizada também com a função table.
+
+
+## Cruzando os dados do uso do medicamento e o grau de melhora
+
+Para criar uma tabela de contingência, basta usar a função table(), incluindo entre os argumentos as duas variáveis desejadas, como mostra o exemplo abaixo.
+
+
+
+
+
+
+
+
+```{r}
+xtabs(~Sex, data=Artrite)
+```
+
+
+
+```{r}
+sexos <- Artrite %>% select(Sex) %>% table()
+
+kable(sexos, caption = "Distribuição dos Sexos", booktabs = T) %>%
+  kable_styling(latex_options = c("striped", "hold_position"))
+```
+
+
+
+
+
+```{r}
+table(Artrite$Treatment)
+```
+
+
+```{r}
+table(Artrite$Improved)
+```
+
+
+```{r}
+table(Artrite$Treatment, Artrite$Improved)
+```
+
+
+```{r}
+tab2 <- table(Artrite$Treatment, Artrite$Improved)
+tab2
+```
+
+
+```{r}
+tab2m <- addmargins(tab2)
+tab2m
+```
+
+
+
+```{r}
+tab2 %>% prop.table() 
+```
+
+
+```{r}
+tab2 %>% prop.table() %>% round(3)
+```
+
+```{r}
+tab2 %>% prop.table() %>% addmargins() %>% round(2)
+```
+
+
+```{r}
+tab2 %>% prop.table() %>% addmargins() %>% "*"(100) %>% round(1)
+```
+
+
+```{r}
+tab3 <- table(Artrite$Treatment, Artrite$Improved, Artrite$Sex)
+tab3
+```
+
+
+
+
+
+
+
+```{r}
+barplot(tab2, legend.text = TRUE)
+```
+
+```{r}
+barplot(tab2, legend.text = TRUE, beside=TRUE)
+```
+
+
+```{r}
+homens   <- subset(Artrite, Sex=="Male")
+mulheres <- subset(Artrite, Sex=="Female") 
+tabh <- table(homens$Treatment, homens$Improved)
+tabf <- table(mulheres$Treatment, mulheres$Improved)
+```
+
+
+
+```{r}
+barplot(tabh, legend.text = TRUE, beside=TRUE)
+```
+
+
+
+```{r}
+barplot(tabf, legend.text = TRUE, beside=TRUE)
+```
+
+
+
+```{r}
+barplot(tabh, legend.text = TRUE, beside=TRUE, ylim = c( 0 , 20))
+barplot(tabf, legend.text = TRUE, beside=TRUE, ylim = c( 0 , 20))
+```
+
+
+
+```{r}
+ggplot(Artrite) +
+  geom_bar(aes(x=Improved, fill=Treatment)) +
+  labs(title = "Relação entre o tratamento e o resultado") +
+  theme_classic() 
+```
+
+
+
+
+```{r}
+ggplot(Artrite) +
+  geom_bar(aes(x=Improved, fill=Sex), position = "fill")
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+boxplot( Improved ~ interaction(Treatment,Sex), data=Artrite )
+```
+
+
+
+
+

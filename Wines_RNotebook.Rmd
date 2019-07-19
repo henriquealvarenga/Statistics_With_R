@@ -1,0 +1,269 @@
+---
+title: "R Notebook"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+library(readr)
+library(plyr)
+library(dplyr)
+library(magrittr)
+library(tidyverse)
+library(data.table)
+```
+
+
+```{r}
+wines  <- readRDS("wines.Rdata")
+#wines2 <- read.csv("winemag-data-130k-v2.csv")
+#wines3 <- read.csv("winemag-data_first150k.csv")
+#wines4 <- readRDS("wines.rds")
+```
+
+
+```{r}
+names(wines)
+```
+
+```{r}
+str(wines)
+```
+
+
+Verificando a tabela que foi lida:
+```{r}
+head(wines)
+```
+
+
+Como a pontuação e o preço se correlacionam? Levando em conta todo o banco de dados.
+
+Usando a função básica do R
+```{r}
+plot(wines$price, wines$points)
+```
+
+```{r}
+ggplot(wines) + geom_jitter(aes(x=price, y=points))
+```
+
+
+# inserindo um modelo linear
+```{r, warning=FALSE, message=FALSE}
+ggplot(wines, aes(x=price, y=points)) + 
+                geom_jitter() +
+                geom_smooth(method = "lm", se = FALSE) 
+```
+
+Como é fácil ver que um modelo linear não é adequado, resta tentarmos um modelo não linear
+
+
+# inserindo um modelo não linear
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(wines, aes(x=price, y=points)) + 
+                geom_jitter() +
+                geom_smooth() 
+```
+
+Podemo inserir linhas verticais para demarcar os preços
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(wines, aes(x=price, y=points)) + 
+                geom_jitter() +
+                geom_smooth() + 
+                geom_vline(xintercept = 250, color="red") + 
+                geom_vline(xintercept = 100, color="red") + 
+                annotate("text", x = 305, y=85, label="250", color="red" ) + 
+                annotate("text", x = 155,  y=85, label="100", color="red" )
+```
+
+Podemo inserir linhas horizontais para demarcar a pontuação
+
+```{r, warning=FALSE, message=FALSE}
+ggplot(wines, aes(x=price, y=points)) + 
+                geom_jitter() +
+                geom_smooth() + 
+                geom_vline(xintercept = 100, color="blue") + 
+                annotate("text", x = 240, y=85, label="100 dólares", color="blue" ) + 
+                geom_hline(yintercept = 95, color="red") + 
+                annotate("text", x = 240,  y=95.5, label="95 pontos", color="red" )
+```
+
+
+
+Qual o ranking dos países se fizermos a média da pontuação dos vinhos de cada pais?
+```{r}
+rank1 <-ddply(wines, .(country), summarize, pontuacao.media=mean(points), desvio.padrao=sd(points))
+rank1 <- rank1[order(-rank1$pontuacao.media),]
+rank1
+```
+
+
+Levando em conta apenas os vinhos com pontuação acima de 90, qual seria o ranking dos países?
+```{r}
+rank90 <-wines %>%
+         filter(points > 95) %>%
+         group_by(country)%>%
+         summarise(n = n()) %>%
+         arrange(desc(n)) %>%
+         head(n = 10)
+knitr::kable(rank90)
+```
+
+Vamos fazer um gráfico desses dados acima
+```{r}
+rank90 %>%    
+    ggplot(aes(x =reorder(country,n), y =  n )) +
+    geom_bar(stat='identity',colour="white", fill = c("darkorchid4")) +
+    labs(x = 'país', y = 'nº vinhos com mais de 90 pontos', title = 'Maiores produtores de bons vinhos') +
+    coord_flip() + 
+    theme_bw()
+```
+
+Vamos agora estudar os vinhos usualmente encontrados no mercado brasileiro: US, Spain, Italy, France, Portugal, Argetina e Chile e analisar a variação do preço médio e pontuação média nesses países.
+
+```{r, message=FALSE, warning=FALSE}
+top7 <- subset(wines, country == c("US", "France", "Italy",  "Spain",  "Portugal", "Argentina", "Chile", "Brasil")) 
+plot1 <- ggplot(top7) + geom_smooth(aes(x=price, y=points, color=country), na.rm = TRUE, se = FALSE)
+plot1
+```
+
+Esse gráfico pode ser separado para facilitar a variação do preço e pontuação em cada país
+
+```{r, message=FALSE}
+plot1 + geom_vline(xintercept = 35, color="red") + facet_wrap(~country, ncol=2) +
+      labs(x = 'preço - Linha vertical em 35$', y = 'pontuação', title = 'Relação preço e pontuação dos vinhos')
+
+```
+
+
+```{r}
+plot2 <- ggplot(top7) + 
+          geom_point(aes(x=price, y=points, color=country), na.rm = TRUE) + 
+          facet_wrap(~country, ncol=2) +
+          geom_vline(xintercept = 35, color="red") +
+          geom_hline(yintercept = 90, col="blue")
+plot2
+```
+
+```{r}
+plot3 <- ggplot(top7) + 
+          geom_jitter(aes(x=price, y=points, color=country), na.rm = TRUE) +
+          facet_wrap(~country, ncol=2) +
+          geom_hline(yintercept = 90, col="blue") +
+          geom_hline(yintercept = 95, col="blue") +
+          scale_x_continuous(limits = c(0, 50))
+
+plot3
+```
+
+
+Vinhos com mais de 93 pontos e com preço abaixo de 30 dólares
+```{r}
+bestdeals1 <- wines %>% select (country, designation, points, price ) %>% filter(price<30 & points > 93) 
+bestdeals1
+```
+
+
+vinhos com nota acima de 90 pontos e preço abaixo de 20 dólares
+```{r}
+bestdeals2 <- wines %>% select (country, designation, points, price ) %>% filter(price<20 & points > 90) 
+bestdeals2
+```
+
+
+
+```{r}
+plot4 <- ggplot(top7) + geom_boxplot(aes(country,points, fill=country))
+plot4
+```
+
+
+```{r}
+plot5 <- ggplot(top7) + geom_boxplot(aes(x=country,y=price, fill=country))
+plot5
+```
+
+```{r}
+ggplot(top7) + geom_boxplot(aes(country,price, fill=country)) + 
+               scale_y_continuous(limits = c(0, 100))
+```
+
+
+
+```{r}
+bestcoutries <- subset(wines, country == c("US", "Spain","France", "Brazil")) 
+ggplot(bestcoutries) + 
+  geom_jitter(aes(x=price, y=points, color=country))
+```
+
+
+```{r}
+bestcoutries <- subset(wines, country == c("US", "Spain","France", "Brazil", "Chile")) 
+p1 <- ggplot(bestcoutries) + geom_smooth(aes(x=price, y=points))
+p1 + facet_wrap(~ country, ncol = 2)
+```
+
+
+
+```{r, warning=FALSE, message=FALSE}
+bestcoutries <- subset(wines, country == c("US", "Spain","France", "Brazil", "Chile")) 
+p1 <- ggplot(bestcoutries) + geom_smooth(aes(x=price, y=points)) + geom_vline(xintercept = 50, color = "red")
+p1 + facet_wrap(~ country, ncol = 2)
+```
+
+```{r}
+brasil <- subset(wines, country == "Brazil") 
+p1 <- ggplot(brasil) + geom_smooth(aes(x=price, y=points)) + geom_vline(xintercept = 50, color = "red")
+p1
+```
+
+
+```{r}
+bestcoutries <- subset(wines, country == c("US", "Spain","France", "Brazil", "Chile") & price < 200) 
+p1 <- ggplot(bestcoutries) + geom_smooth(aes(x=price, y=points))
+p1 + facet_wrap(~ country, ncol = 2)
+```
+
+
+
+```{r}
+bestcoutries <- filter(wines, country == c("US", "Spain","France", "Brazil", "Chile") & price<100) 
+p1 <- ggplot(bestcoutries) + geom_point(aes(x=price, y=points)) + geom_hline(yintercept = 90, color="red") + geom_vline(xintercept =20, color="blue")
+p1 + facet_wrap(~ country, ncol = 2)
+```
+
+
+```{r}
+# vinhos com pontos acima de 90 e com custo abaixo de 20 dólares nos EUA
+mywines <- filter(wines, price < 20 & points > 90 & country == "US")
+mywines
+```
+
+```{r}
+countrymeans <-ddply(wines, .(country), summarize, mean=mean(points), sd=sd(points))
+countrymeans2 <- countrymeans[order(-countrymeans$mean),]
+countrymeans2
+```
+
+```{r}
+ggplot(countrymeans2) + geom_histogram(aes(mean))
+```
+
+
+
+```{r}
+brasil <-filter(wines, country=="Brazil")
+mean(brasil$points)
+```
+
+```{r}
+#saveRDS(wines3, file = "wines.rds")
+```
+
+
+

@@ -55,7 +55,7 @@ Guyana,South America,9.3,14.75,8.7,11.08,144.1,56.02,Measured,133,Genital size m
 Haiti,Central America/Caribean,10.8,15.67,9.5,12.1,182.57,77.56,Self reported,380,https://www.surveymonkey.com - 2015,1.4509259259259257,1.2736842105263158,2.353919546157813
 Hawaii,Pacific Islands,9.1,13.21,9.1,11.5,139.02,59.97,Measured,120,Genital size measure survey 2015,1.4516483516483518,1.2637362637362637,2.31815907953977
 Honduras,Central America/Caribean,8.6,12.4,8.7,11.05,120.49,51.8,Measured,100,"Estudio: Datos sobre el pene , El Heraldo Junio 2015 tag/715212-213",1.4418604651162792,1.270114942528736,2.326061776061776
-"Hong Kong SAR, China",Asia,8.2,11.19,8.6,10.7,101.95,48.26,Measured,269,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.3646341463414635,1.244186046511628,2.1125155408205556
+Hong Kong,Asia,8.2,11.19,8.6,10.7,101.95,48.26,Measured,269,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.3646341463414635,1.244186046511628,2.1125155408205556
 Hungary,Europe,10,14.68,9.4,11.81,162.94,70.31,Self reported,480,https://www.surveymonkey.com - 2015,1.468,1.2563829787234042,2.3174512871568766
 Iceland,Europe,9.9,14.56,9.6,12.01,167.12,72.61,Self reported,590,Krause. Jan Vinzenz. 2008 Institut fur Kondom Beratung,1.4707070707070706,1.2510416666666666,2.3016113482991325
 India,South Asia,8.8,12.93,9.2,11.49,135.84,59.27,Measured,301,K Promodum et al.; Penile length and circumference: an Indian study 2007,1.4693181818181817,1.248913043478261,2.29188459591699
@@ -71,8 +71,8 @@ Jordan,Western Asia,9.2,13.5,9.2,11.89,151.88,61.97,Measured,469,Awwad Z. Abu-H
 Kazakhstan,Central Asia,9.3,13.46,9.1,11.34,137.74,61.29,Self reported,100,https://www.surveymonkey.com - 2015,1.4473118279569892,1.2461538461538462,2.2473486702561596
 Kenya,Africa,10.4,16.28,10,12.33,196.96,82.76,Self reported,258,https://www.surveymonkey.com - 2015,1.5653846153846154,1.233,2.3798936684388594
 Kiribati,Pacific Islands,9.8,14.19,8.9,11.33,144.95,61.77,Measured,53,Genital size measure survey 2015,1.4479591836734693,1.2730337078651686,2.346608385947871
-"Korea, North",Asia,7,9.6,9.5,11.86,107.46,50.27,Measured,800,Military General Hospital 1956  Korean Urol J. 203,1.3714285714285714,1.2484210526315789,2.1376566540680324
-"Korea, Rep.",Asia,7.9,10.8,9.1,11.3,109.74,52.06,Measured,878,Journal of Urology 1998. Seoul. Korea.,1.3670886075949367,1.2417582417582418,2.107952362658471
+North Korea,Asia,7,9.6,9.5,11.86,107.46,50.27,Measured,800,Military General Hospital 1956  Korean Urol J. 203,1.3714285714285714,1.2484210526315789,2.1376566540680324
+South Korea,Asia,7.9,10.8,9.1,11.3,109.74,52.06,Measured,878,Journal of Urology 1998. Seoul. Korea.,1.3670886075949367,1.2417582417582418,2.107952362658471
 Kuwait,Western Asia,8.3,11.38,8.8,11.47,119.14,51.15,Measured,380,Dr. A. Kandari - Al Seef Hospital 2015,1.3710843373493975,1.303409090909091,2.329227761485826
 Laos,Asia,7.4,10.14,8.7,10.86,95.17,44.57,Measured,60,Genital size measure survey 2015,1.3702702702702703,1.2482758620689656,2.135292797846085
 Latvia,Europe,10,14.69,9.5,11.93,166.38,71.82,Self reported,267,Krause. Jan Vinzenz. 2009 Institut fur Kondom Beratung,1.4689999999999999,1.2557894736842106,2.3166248955722644
@@ -80,7 +80,7 @@ Lebanon,Western Asia,10.7,16.82,9.6,12.39,205.47,78.47,Self reported,279,Rafik H
 Libya,Africa,9.3,13.74,9.4,11.68,149.16,65.39,Measured,93,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.4774193548387096,1.2425531914893617,2.281082734363052
 Lithuania,Europe,9.9,14.55,9,11.27,147.06,63.81,Self reported,267,Krause. Jan Vinzenz. 2009 Institut fur Kondom Beratung,1.4696969696969697,1.2522222222222221,2.304654442877292
 Luxembourg,Europe,9.4,13.82,9.1,11.4,142.92,61.94,Self reported,279,Krause. Jan Vinzenz. 2009 Institut fur Kondom Beratung,1.4702127659574469,1.2527472527472527,2.3073942525024216
-"Macedonia, FYR",Europe,9.5,13.98,9.6,11.97,159.4,69.67,Measured,230,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.471578947368421,1.2468750000000002,2.2879288072341035
+Macedonia,Europe,9.5,13.98,9.6,11.97,159.4,69.67,Measured,230,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.471578947368421,1.2468750000000002,2.2879288072341035
 Mexico,North America,9.6,14.09,8.9,11.18,140.15,60.51,Measured,477,Centro de andrologia - Universidad Veracruzano - Gerardo Ortiz - 2015,1.4677083333333334,1.2561797752808987,2.316146091555115
 Moldova,Europe,9.4,13.76,9.3,11.64,148.36,64.7,Measured,366,Genital size measure survey 2015,1.4638297872340424,1.2516129032258063,2.2930448222565687
 Mongolia,Asia,8.7,12.77,8.5,10.61,114.4,50.02,Measured,370,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.467816091954023,1.2482352941176469,2.2870851659336267
@@ -135,6 +135,6 @@ United Kingdom,Europe,9.7,14.3,9.8,12.22,169.93,74.13,Measured,1024,Khan S. Soma
 United States,North America,9.6,14.15,9.7,12.23,168.42,71.88,Self reported,1661,Herbenick D.. Reece M. Schick V. Sanders SA. 2013,1.4739583333333335,1.2608247422680414,2.3430717863105177
 Uruguay,South America,9.2,14.67,9.8,12.57,184.46,70.31,Self reported,861,https://www.surveymonkey.com - 2015,1.5945652173913045,1.2826530612244897,2.6235243919783815
 Uzbekistan,Western Asia,9.1,13.43,9.2,11.92,151.85,61.29,Measured,236,Genital size measure survey 2015,1.475824175824176,1.2956521739130435,2.4775656713982706
-"Venezuela, RB",South America,10.6,16.93,10.2,13.03,228.74,87.76,Measured,4610,D’Empaire. Prof. Gabriel Universidad de Venezuela. 1998,1.5971698113207546,1.277450980392157,2.606426618049225
+Venezuela, South America,10.6,16.93,10.2,13.03,228.74,87.76,Measured,4610,D’Empaire. Prof. Gabriel Universidad de Venezuela. 1998,1.5971698113207546,1.277450980392157,2.606426618049225
 Vietnam,Southeast Asia,7.4,10.15,8.9,11.55,107.75,46.64,Measured,365,"Vietnam Urology- Dr. N.B. Trieu (VUNA), Hanoi, Vietnam 2015",1.3716216216216217,1.297752808988764,2.3102487135506005
-"Yemen, Rep.",Western Asia,8.6,12.7,8.4,10.89,119.85,48.29,Measured,70,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.4767441860465116,1.2964285714285715,2.4818803064816732
+Yemen, Western Asia,8.6,12.7,8.4,10.89,119.85,48.29,Measured,70,Lynn et al.. 2012. An examination of Rushton’s theory of differences in penis length,1.4767441860465116,1.2964285714285715,2.4818803064816732
